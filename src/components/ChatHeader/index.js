@@ -2,13 +2,14 @@ import React from 'react';
 import {css} from 'glamor';
 
 const headerStyle = css({
-    height: 50
+    height: 30,
+    borderBottom: '1px solid #ecf0f1'
 });
 
 const ChatHeader = () => {
     return (
         <div {...headerStyle}>
-            header
+            <p className="text-muted">header</p>
         </div>
     );
 };

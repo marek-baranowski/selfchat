@@ -1,5 +1,6 @@
 import React from 'react';
 import {css} from 'glamor';
+import { InputGroup, InputGroupButton, Input, Button } from 'reactstrap';
 
 const footerStyle = css({
     height: 50
@@ -8,7 +9,10 @@ const footerStyle = css({
 const ChatFooter = () => {
     return (
         <div {...footerStyle}>
-            footer
+            <InputGroup>
+                <Input />
+                <InputGroupButton><Button>Send</Button></InputGroupButton>
+            </InputGroup>
         </div>
     );
 };

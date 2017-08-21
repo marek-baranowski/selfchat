@@ -21,12 +21,21 @@ const containerStyle = css({
     })
 );
 
+const messages = [
+    {content: 'blablabla'},
+    {content: 'rqwerwerf'},
+    {content: 'blablfdsfafafabla'},
+    {content: '513451341345134'},
+    {content: 'fadfsdfasfddasf'},
+    {content: 'fasfcxzvxc'}
+];
+
 class App extends Component {
     render() {
         return (
             <div className="App" {...containerStyle}>
                 <ChatHeader />
-                <MessageList />
+                <MessageList {...{messages}} />
                 <ChatFooter />
             </div>
         );

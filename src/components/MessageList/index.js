@@ -1,5 +1,6 @@
 import React from 'react';
 import {css} from 'glamor';
+import Message from '../../components/Message';
 
 const messageListStyle = css({
     flex: 'auto',
@@ -7,17 +8,10 @@ const messageListStyle = css({
     flexDirection: 'column-reverse',
 });
 
-const MessageList = () => {
+const MessageList = ({messages}) => {
     return (
         <div {...messageListStyle}>
-            <div>xxx</div>
-            <div>xxx</div>
-            <div>xxx</div>
-            <div>xxx</div>
-            <div>xxx</div>
-            <div>xxx</div>
-            <div>xxx</div>
-            <div>xxx</div>
+            {messages.map((message) => <Message {...{message}} />)}
         </div>
     );
 };
