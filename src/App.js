@@ -4,6 +4,20 @@ import {breakpoints} from './consts';
 import MessageList from './components/MessageList';
 import ChatHeader from './components/ChatHeader';
 import ChatFooter from './components/ChatFooter';
+import ListPage from './components/ListPage';
+import {
+    QueryRenderer,
+    graphql
+} from 'react-relay';
+import environment from './Environment';
+
+const AppAllPostQuery = graphql`
+    query AppAllPostQuery {
+        viewer {
+            ...MessageList_viewer
+        }
+    }
+`;
 
 const containerStyle = css({
         backgroundColor: 'hsla(0,0%,100%,.85)',
@@ -33,11 +47,26 @@ const messages = [
 class App extends Component {
     render() {
         return (
-            <div className="App" {...containerStyle}>
-                <ChatHeader />
-                <MessageList {...{messages}} />
-                <ChatFooter />
-            </div>
+            <QueryRenderer
+                environment={environment}
+                query={AppAllPostQuery}
+                render={({error, props}) => {
+                    if (error) {
+                        return <div>{error.message}</div>
+                    } else if (props) {
+                        return (
+                            <div className="App">
+                                <div {...containerStyle}>
+                                    <ChatHeader />
+                                    <MessageList {...{messages}} />
+                                    <ChatFooter />
+                                </div>
+                            </div>
+                        )
+                    }
+                    return <div>Loading</div>
+                }}
+            />
         );
     }
 }

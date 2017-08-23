@@ -1,5 +1,9 @@
 import React from 'react';
 import {css} from 'glamor';
+import {
+    createFragmentContainer,
+    graphql
+} from 'react-relay';
 import Message from '../../components/Message';
 
 const messageListStyle = css({
@@ -8,12 +12,22 @@ const messageListStyle = css({
     flexDirection: 'column-reverse',
 });
 
-const MessageList = ({messages}) => {
+const MessageList = ({viewer}) => {
     return (
         <div {...messageListStyle}>
-            {messages.map((message) => <Message {...{message}} />)}
+            {viewer.messages.map((message) => <Message {...{message}} />)}
         </div>
     );
 };
 
-export default MessageList;
+export default createFragmentContainer(MessageList, graphql`
+    fragment MessageList_viewer on Viewer {
+        allMessages(last: 100, orderBy: createdAt_DESC) @connection(key: "MessageList_allMessages", filters: []) {
+            edges {
+                node {
+                    ...Message_message
+                }
+            }
+        }
+    }
+`)

@@ -1,5 +1,9 @@
 import React from 'react';
 import {css} from 'glamor';
+import {
+    createFragmentContainer,
+    graphql
+} from 'react-relay';
 
 const messageStyle = css({
     margin: '10px 5px 5px'
@@ -15,7 +19,7 @@ const messageContentStyle = css({
     backgroundColor: '#5ad427'
 });
 
-const MessageList = ({message}) => {
+const Message = ({message}) => {
     return (
         <div {...messageStyle}>
             <div {...messageContentStyle}>{message.content}</div>
@@ -23,4 +27,8 @@ const MessageList = ({message}) => {
     );
 };
 
-export default MessageList;
+export default createFragmentContainer(Message, graphql`
+    fragment Message_message on Message {
+        content
+    }
+`)
