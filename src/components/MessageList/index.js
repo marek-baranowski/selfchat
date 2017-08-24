@@ -12,6 +12,7 @@ const messageListStyle = css({
     flexDirection: 'column-reverse',
 });
 
+/*
 const MessageList = ({viewer}) => {
     return (
         <div {...messageListStyle}>
@@ -19,7 +20,19 @@ const MessageList = ({viewer}) => {
         </div>
     );
 };
+*/
 
+class MessageList extends React.Component {
+    render() {
+        return (
+            <div {...messageListStyle}>
+                {this.props.viewer.messages.map((message) => <Message {...{message}} />)}
+            </div>
+        );
+    }
+}
+
+/*
 export default createFragmentContainer(MessageList, graphql`
     fragment MessageList_viewer on Viewer {
         allMessages(last: 100, orderBy: createdAt_DESC) @connection(key: "MessageList_allMessages", filters: []) {
@@ -31,3 +44,6 @@ export default createFragmentContainer(MessageList, graphql`
         }
     }
 `)
+*/
+
+export default MessageList;
